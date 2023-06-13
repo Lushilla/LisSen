@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f27fb47a-7893-4cb6-9ddd-77275bb5bd50/resourceGroups/Vote/providers/Microsoft.Web/sites/LisSenVote",
+    "appService.deploySubpath": "."
+}
