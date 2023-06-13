@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Questions-LisSenVote</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="main.css" />
+  <noscript><link rel="stylesheet" href="noscript.css" /></noscript>
+  <meta charset="utf-8">
+  <title>Metamask Integration</title>
+  <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mongodb@4.3.1"></script>
+</head>
+<body >
+
+  <h1>Wallet-Adresse</h1>
+  <p id="walletAddress" style="color: black;"></p>
+  <button onclick="connectMetamask()" style="font-weight: bold;">Connect</button>
+
+
+
+  <h1>Submit walletadresse</h1>  
+  <form class="container" method="post" action="/">
+    <div class="form-group">
+      <input class="from-control" name="Wallet" id="walletInput" style="color: black; background-color: white; width: 400px; height: 40px;" value="">
+    </div>
+
+    <h1>Categories</h1>
+    <div class="form-group">
+      <select id="categorySelect" name="categorySelect" onchange="updateSelectedOption()">
+        <option value="kategorie1">Politics</option>
+        <option value="kategorie2">Financial</option>
+        <option value="kategorie3">Freedom</option>
+      </select>
+    </div>
+
+    <h1>Questions</h1>
+    <select id="questionCategorySelect" name="questionCategorySelect" onchange="updateSelectedOption()">
+      <option value="fragekategorie1">1</option>
+      <option value="fragekategorie2">2</option>
+      <option value="fragekategorie3">3</option>
+      <option value="fragekategorie4">4</option>
+      <option value="fragekategorie5">5</option>
+    </select>
+
+    <h1>Yes or No</h1>
+    <div class="form-group">
+      <select id="yesNoSelect" name="YesN" onchange="updateSelectedOption()">
+        <option value="ja">Yes</option>
+        <option value="nein">No</option>
+      </select>
+    </div>
+
+
+
+
+
+    <p id="selectedOptions" style="color: black;"></p> 
+
+  
+
+    <button>send</button>
+  </form>
+
+  <script>
+    async function connectMetamask() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const web3 = new Web3(window.ethereum);
+
+          const accounts = await web3.eth.getAccounts();
+          const walletAddress = accounts[0];
+
+          document.getElementById('walletAddress').textContent = 'Verbundene Wallet-Adresse: ' + walletAddress;
+          document.getElementById('walletInput').value = walletAddress;
+
+        } catch (error) {
+          console.error('Fehler beim Verbinden mit Metamask:', error);
+        }
+      } else {
+        console.error('Metamask ist nicht installiert oder nicht verfügbar.');
+      }
+    }
+
+        function updateSelectedOption() {
+          
+      const categorySelectElement = document.getElementById('categorySelect');
+      const categoryOption = categorySelectElement.options[categorySelectElement.selectedIndex].text;
+
+      const questionCategorySelectElement = document.getElementById('questionCategorySelect');
+      const questionCategoryOption = questionCategorySelectElement.options[questionCategorySelectElement.selectedIndex].text;
+      
+        
+      const yesNoSelectElement = document.getElementById('yesNoSelect');
+      const yesNoOption = yesNoSelectElement.options[yesNoSelectElement.selectedIndex].text;
+
+      
+
+      
+
+      document.getElementById('selectedOptions').textContent = 'Ausgewählte Optionen: '  + categoryOption + "," + questionCategoryOption + "," + yesNoOption;
+
+    }
+
+
+  </script>
+ 
+
+
+</body>
+</html>
